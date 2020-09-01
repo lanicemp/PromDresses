@@ -5,3 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Dress.create ([
+    {name:'ELLIE FORMAL SATIN HIGH SLIT DRESS',
+    silhouette:('empire waist'' fit and flare'),
+    neckline: 'v nec',
+    length:'long',
+    color:'mauve',
+    img_url:'https://cdn.shopify.com/s/files/1/0070/8853/7651/products/05002-0138_1_1194x.jpg?v=1572403438',
+    price:109.90,
+    dress_id:1
+    }, 
+])
