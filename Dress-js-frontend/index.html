@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel= "stylesheet"  src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js">
+    <title>Rate My Prom Dress</title>
+</head>
+<body>
+    <div id="backdrop"></div>
+    <header>
+      <h1>Prom Dresses</h1>
+      <button>ADD Prom Dress</button>
+    </header>
+    <div class="modal card" id="add-modal">  
+        <div class="modal__content">    
+         <section id="new-dress-container" > 
+           <!-- <div class="card"> -->
+               <!-- <div id="new-dress-container"> -->
+                   <form id="new-dress-form">
+                       <label for="name">Dress Name </label>
+                       <br>
+                       <input type="text" name="name" id="name" />
+                       <br>
+                       <label for="image-url">Image URL</label>
+                       <br>
+                       <input type="text" name="image-url" id="image-url" />
+                       <br>
+                       <label for="price">Price</label>
+                       <br>
+                       <input type="number" min="0" max="10000" name="price" id="price" />
+                       <br>
+                       <label for="silhouette">Silhouette </label>
+                       
+                       <select name="silhouette" id="silhouette" >
+                         <option value="fit-and-flare">Fit and Flare</option>
+                         <option value="wrap">Wrap</option>
+                         <option value="fitted">Fitted</option>
+                         <option value="asymmetrical">Asymmetrical</option>
+                         <option value="empire waist">Empire Waist</option>
+                         <option value="sheath">Sheath</option>
+                         <option value="mermaid">Mermaid</option>
+                       </select>
+                       
+                       <label for="neckline">Neckline</label>
+                       
+                       <select name="neckline" id="neckline" >
+                         <option value="sweetheart">Sweetheart</option>
+                         <option value="square">Square</option>
+                         <option value=" one-shoulder"> One Shoulder</option>
+                         <option value="off-the-shoulder">Off the Shoulder</option>
+                         <option value=" v-neck"> V-Neck</option>
+                         <option value="plunging">Plunging</option>
+                         <option value="halter">Halter</option>
+                       </select>
+                       
+                       <label for="length">Length</label>
+                       
+                       <select name="length" id="length" >
+                         <option value="long">Long</option>
+                         <option value="short">Short</option>
+                         <option value="midi">Midi</option>
+                       </select>
+                       <br>
+                       <input type="submit" value="Save dress" />
+                   </form>
+               </div>
+           </section>
+           </div>
+       </div> 
+   </div> 
+   <main>
+    <!-- <div class ="slideshow-container" id="slideshow-container">
+      <div class="mySlides fade">
+        <div class="numbertext">1 / 3</div>
+        <img src="https://ae01.alicdn.com/kf/HTB1criidjfguuRjSspkq6xchpXaO/Hot-Sale-Short-Prom-Gowns-High-Neck-Sheer-Long-Sleeve-Cocktail-Party-Gowns-Black-Girl-High.jpg" style="width:25%" align="right>
+        <img src="https://ae01.alicdn.com/kf/HTB1criidjfguuRjSspkq6xchpXaO/Hot-Sale-Short-Prom-Gowns-High-Neck-Sheer-Long-Sleeve-Cocktail-Party-Gowns-Black-Girl-High.jpg" style="width:25%"
+        <div class="text">Caption Text</div>
+      </div>
+    </div> -->
+
+
+    <section id="dresses-content"class="card">
+      <!-- <p>Your personal dress database!</p> -->
+   
+      <ul id="dress-container" ></ul>
+    </section>
+    <div id="dress-show" ></div> 
+  </main>
+  <!-- <div id="dresses-content"> -->
+      <!-- <ul id="dress-container"></ul> -->
+      <!-- <div id="dress-show"></div>  -->
+  <!-- </div> -->
+ 
+  <script type="text/javascript" src="src/components/dress.js"></script>
+  <script src="src/components/dresses.js"></script>
+  <script src="src/components/app.js"></script>
+  <script src="src/adapters/DressesAdapter.js"></script>
+  <script src="src/index.js"></script>
+   
+</body>
+</html>
