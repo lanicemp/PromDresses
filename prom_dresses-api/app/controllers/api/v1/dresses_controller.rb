@@ -19,7 +19,7 @@ class Api::V1::DressesController < ApplicationController
     @dress = Dress.new(dress_params)
 
     if @dress.save
-      render json: @dress, status: :created, location: @dress
+      render json: @dress, status: :created 
     else
       render json: @dress.errors, status: :unprocessable_entity
     end
