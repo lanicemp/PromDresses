@@ -7,26 +7,26 @@ class DressesAdapter {
         console.log('Im in get get dresses ')
         return fetch(this.baseUrl).then((res) => res.json());
     }
-    createDress(name, silhouette, neckline, img_url, price, length){
-      // debugger
-        const dress = {
-          name: name,
-          silhouette: silhouette,
-          neckline: neckline,
-          img_url: img_url,
-          price: price, 
-          length: length
+    // createDress(name, silhouette, neckline, img_url, price, length){
+    //   // debugger
+    //     const dress = {
+    //       name: name,
+    //       silhouette: silhouette,
+    //       neckline: neckline,
+    //       img_url: img_url,
+    //       price: price, 
+    //       length: length
           
-        }
+    //     }
        
-        return fetch(this.baseUrl,{
+        // return fetch(this.baseUrl,{
           
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json'
-          },
-          body: JSON.stringify(dress),
+        //   method: 'POST',
+        //   headers: {
+        //     'content-type': 'application/json'
+        //   },
+        //   body: JSON.stringify(dress),
           
-        }).then(res=>res.json())
+        // }).then(res=>res.json())
       }
 }
