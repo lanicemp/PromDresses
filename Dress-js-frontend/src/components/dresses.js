@@ -1,11 +1,14 @@
 class Dresses {
   constructor() {
     this.dresses = [];
-    this.adapter = new DressesAdapter();
+    this.baseUrl = "http://localhost:3000/api/v1/dresses"
+    // this.adapter = new DressesAdapter();
     this.initiBindingsAndEventListeners();
     this.fetchAndLoadDresses();
+   
   }
   initiBindingsAndEventListeners() {
+   
     this.addDressModal = document.getElementById("add-modal");
     this.startAddDressButton = document.querySelector("header button");
     this.backdrop = document.getElementById("backdrop");
@@ -54,37 +57,46 @@ class Dresses {
   createNewDress(e) {
     e.preventDefault();
     console.log(this);
-    const name = this.newDressName.value;
-    const silhouette = this.newDressSilhouette.value;
-    const neckline = this.newDressNeckline.value;
-    const img_url = this.newDressImg.value;
-    const price = this.newDressPrice.value;
-    const length = this.newDressLength.value;
     //  this.newDressSilhouette.value;
+    const dress = {
+        name: this.newDressName.value,
+        silhouette: this.newDressSilhouette.value,
+        neckline: this.newDressNeckline.value,
+        img_url: this.newDressImg.value,
+        price: this.newDressPrice.value, 
+        length: this.newDressLength.value
+        
+      }
+    fetch(this.baseUrl,{
+          
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(dress),
+        
+      }).then(res=>res.json())
 
-    this.adapter.createDress(
-      name,
-      silhouette,
-      neckline,
-      img_url,
-      price,
-      length
-    );
-
-    this.render();
+    // this.adapter
+    //   .createDress(name, silhouette, neckline, img_url, price, length)
+      .then((dress) => {
+        console.log("in create dress");
+        console.log(dress);
+        this.dresses.push(new Dress(dress));
+        this.newDressName.value = " ";
+        this.newDressSilhouette.value = " ";
+        this.newDressNeckline.value = " ";
+        this.newDressImg.value = " ";
+        this.newDressPrice.value= " ";
+        this.newDressLength.value = " ";
+        this.render();
+      });
     this.closeDressModal();
     console.log(dress);
-
-    // this.adapter.createDress(value).then((note) => {
-    //   console.log(note)
-    //   this.dresses.push(new Dress(dress));
-    //   this.newDressName.value = "";
-    //   this.render();
-    // });
   }
   fetchAndLoadDresses() {
-    this.adapter
-      .getDresses()
+    fetch(this.baseUrl).then((res) => res.json())
+     
       .then((dresses) => {
         dresses.forEach((dress) => this.dresses.push(new Dress(dress)));
         console.log(this.dresses);
