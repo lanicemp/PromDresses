@@ -2,9 +2,11 @@ class Dresses {
   constructor() {
     this.dresses = [];
     this.baseUrl = "http://localhost:3000/api/v1/dresses"
+    this.ratingUrl = "http://localhost:3000/api/v1/ratings"
     // this.adapter = new DressesAdapter();
     this.initiBindingsAndEventListeners();
     this.fetchAndLoadDresses();
+    
    
   }
   initiBindingsAndEventListeners() {
@@ -20,26 +22,27 @@ class Dresses {
     this.newDressPrice = document.getElementById("price");
     this.newDressLength = document.getElementById("length");
     this.dressForm = document.getElementById("new-dress-form");
-    this.viewDress = document.getElementById("dress_card");
 
+    // this.viewDress = document.getElementById("dress_card");
+    this.viewDressButton = document.querySelector("main section button");
     this.dressForm.addEventListener("submit", this.createNewDress.bind(this));
+    // this.viewDressButton.addEventListener("click", this.viewDressModal.bind(this));
     this.startAddDressButton.addEventListener(
       "click",
-      this.showDressModal.bind(this)
+      this.createDressModal.bind(this)
     );
     this.backdrop.addEventListener("click", this.backdropClickHandler);
-    // this.viewDress.addEventListener('click', this.viewDressModal);
+    // this.viewDressButton.addEventListener("click", this.viewDressModal.bind(this));
+    
   }
   toggleBackdrop = () => {
     backdrop.classList.toggle("visible");
   };
+  
+  
 
-  viewDressModal = () => {
-    console.log("im in viewDressModal");
-  };
-
-  showDressModal = () => {
-    console.log("im in showDressModal");
+  createDressModal = () => {
+    console.log("im in createDressModal");
     // function() {}
     this.addDressModal.classList.add("visible");
     this.toggleBackdrop();
@@ -49,6 +52,8 @@ class Dresses {
     this.addDressModal.classList.remove("visible");
     this.toggleBackdrop();
   };
+  
+
   backdropClickHandler = () => {
     this.closeDressModal();
     // closeMovieDeletionModal();
@@ -77,8 +82,8 @@ class Dresses {
         
       }).then(res=>res.json())
 
-    // this.adapter
-    //   .createDress(name, silhouette, neckline, img_url, price, length)
+        // this.adapter
+        //   .createDress(name, silhouette, neckline, img_url, price, length)
       .then((dress) => {
         console.log("in create dress");
         console.log(dress);
@@ -94,6 +99,7 @@ class Dresses {
     this.closeDressModal();
     console.log(dress);
   }
+
   fetchAndLoadDresses() {
     fetch(this.baseUrl).then((res) => res.json())
      
@@ -103,8 +109,10 @@ class Dresses {
       })
       .then(() => {
         this.render();
+        
       });
   }
+
   render() {
     const dressesContainer = document.getElementById("dress-container");
     dressesContainer.innerHTML = this.dresses
@@ -117,17 +125,34 @@ class Dresses {
             </div>
             <div class = "dress_info"> 
             <h3>${dress.name}<h3>
+            <td>
+              <div class="stars-outer">
+                <div class="stars-inner"></div>
+              </div>
+              <span class="number-rating"></span>
+            </td>
             <p> silhouette: ${dress.silhouette}
             <br> neckline: ${dress.neckline} 
             <br> length: ${dress.length}
             <br> price: $${dress.price}</p>
             </div>
-            
+             <button> Dress Details and Comments </button>
+            <br>
             </ul>
-            </div>`
+            </div>
+            
+            `
+           
       )
       .join("");
+     
     // this.dressesContainer.innerHTML = this.dresses.map(dress => dress.renderLi()).join("");
     // this.dressesContainer.innerHTML = this.dresses.map(dress => dress.renderLi()).join('')
   }
+  viewDressModal = () => {
+    console.log("im in viewDressModal");
+    this.addDressModal.classList.add("visible");
+    this.toggleBackdrop();
+  };
+  // 
 }
