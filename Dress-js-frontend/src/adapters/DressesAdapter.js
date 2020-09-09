@@ -1,12 +1,12 @@
-class DressesAdapter {
-    constructor(){
-        console.log('Im in the DressesAdapter ')
-        this.baseUrl = "http://localhost:3000/api/v1/dresses"
-    }
-    getDresses(){
-        console.log('Im in get get dresses ')
-        return fetch(this.baseUrl).then((res) => res.json());
-    }
+// class DressesAdapter {
+//     constructor(){
+//         console.log('Im in the DressesAdapter ')
+//         this.baseUrl = "http://localhost:3000/api/v1/dresses"
+//     }
+//     getDresses(){
+//         console.log('Im in get get dresses ')
+//         return fetch(this.baseUrl).then((res) => res.json());
+    // }
     // createDress(name, silhouette, neckline, img_url, price, length){
     //   // debugger
     //     const dress = {
@@ -27,6 +27,6 @@ class DressesAdapter {
         //   },
         //   body: JSON.stringify(dress),
           
-        // }).then(res=>res.json())
-      }
-}
+//         // }).then(res=>res.json())
+//       }
+// }
