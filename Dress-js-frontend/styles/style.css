@@ -155,6 +155,7 @@
   img{
     max-width: 100%;
     max-height: 100%;
+    margin:0 auto;
     display: block; /* remove extra space below image */
 }
 .gallery {
@@ -182,10 +183,20 @@
   .modal {
     position: fixed;
     z-index: 100;
-    width: 50%;
+    /* width: 75vw; */
     top: 30vh;
     left: 10%;
     display: none;
+  }
+  .modal#view-dress-modal {
+    max-height: calc(100% - 100px);
+    position: fixed;
+    top: 5%;
+    left: 15%;
+    width:75%;
+    transform: translate(-50%, -50%);
+    overflow-y: scroll; 
+    padding-left: 10px;
   }
   
   .modal.visible {
