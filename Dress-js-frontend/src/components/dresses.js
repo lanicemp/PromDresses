@@ -1,17 +1,14 @@
 class Dresses {
   constructor() {
     this.dresses = [];
-    
-    this.baseUrl = "http://localhost:3000/api/v1/dresses"
-    this.ratingUrl = "http://localhost:3000/api/v1/ratings"
+
+    this.baseUrl = "http://localhost:3000/api/v1/dresses";
+    this.ratingUrl = "http://localhost:3000/api/v1/ratings";
     // this.adapter = new DressesAdapter();
     this.initiBindingsAndEventListeners();
     this.fetchAndLoadDresses();
-    
-   
   }
   initiBindingsAndEventListeners() {
-   
     this.addDressModal = document.getElementById("add-modal");
     this.startAddDressButton = document.querySelector("header button");
     this.backdrop = document.getElementById("backdrop");
@@ -24,25 +21,25 @@ class Dresses {
     this.newDressLength = document.getElementById("length");
     this.dressForm = document.getElementById("new-dress-form");
     this.dressContainer = document.getElementById("dress-container");
-    
-    this.dressForm.addEventListener("submit", this.createNewDress.bind(this));
-    
-    this.dressContainer.addEventListener("click", this.viewDressModal.bind(this));
-    this.startAddDressButton.addEventListener("click",this.createDressModal.bind(this));
-    this.backdrop.addEventListener("click", this.backdropClickHandler);
-    
     this.viewDressModal = document.getElementById("view-dress-modal");
-    this.ratingForm = document.getElementById("new-rating-form");
-    // this.ratingForm.addEventListener("submit", this.createNewRating.bind(this));
-    
+
+    this.dressForm.addEventListener("submit", this.createNewDress.bind(this));
+    this.dressContainer.addEventListener(
+      "click",
+      this.showDressModal.bind(this)
+    );
+    this.startAddDressButton.addEventListener(
+      "click",
+      this.createDressModal.bind(this)
+    );
+    this.backdrop.addEventListener("click", this.backdropClickHandler);
+
     //  window.dressesContainer.addEventListener('click', this.handleClick.bind(this))
-  // .getElementById('dress-container').addEventListener('click', this.handleClick.bind(this));
+    // .getElementById('dress-container').addEventListener('click', this.handleClick.bind(this));
   }
   toggleBackdrop = () => {
     backdrop.classList.toggle("visible");
   };
-  
-  
 
   createDressModal = () => {
     console.log("im in createDressModal");
@@ -54,10 +51,9 @@ class Dresses {
   closeDressModal = () => {
     this.addDressModal.classList.remove("visible");
     this.viewDressModal.classList.remove("visible");
-   
+
     this.toggleBackdrop();
   };
-  
 
   backdropClickHandler = () => {
     this.closeDressModal();
@@ -69,26 +65,24 @@ class Dresses {
     console.log(this);
     //  this.newDressSilhouette.value;
     const dress = {
-        name: this.newDressName.value,
-        silhouette: this.newDressSilhouette.value,
-        neckline: this.newDressNeckline.value,
-        img_url: this.newDressImg.value,
-        price: this.newDressPrice.value, 
-        length: this.newDressLength.value
-        
-      }
-    fetch(this.baseUrl,{
-          
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify(dress),
-        
-      }).then(res=>res.json())
+      name: this.newDressName.value,
+      silhouette: this.newDressSilhouette.value,
+      neckline: this.newDressNeckline.value,
+      img_url: this.newDressImg.value,
+      price: this.newDressPrice.value,
+      length: this.newDressLength.value,
+    };
+    fetch(this.baseUrl, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(dress),
+    })
+      .then((res) => res.json())
 
-        // this.adapter
-        //   .createDress(name, silhouette, neckline, img_url, price, length)
+      // this.adapter
+      //   .createDress(name, silhouette, neckline, img_url, price, length)
       .then((dress) => {
         console.log("in create dress");
         console.log(dress);
@@ -97,7 +91,7 @@ class Dresses {
         this.newDressSilhouette.value = " ";
         this.newDressNeckline.value = " ";
         this.newDressImg.value = " ";
-        this.newDressPrice.value= " ";
+        this.newDressPrice.value = " ";
         this.newDressLength.value = " ";
         this.render();
       });
@@ -106,18 +100,16 @@ class Dresses {
   }
 
   fetchAndLoadDresses() {
-    fetch(this.baseUrl).then((res) => res.json())
-           .then((dresses) => {
+    fetch(this.baseUrl)
+      .then((res) => res.json())
+      .then((dresses) => {
         dresses.forEach((dress) => this.dresses.push(new Dress(dress)));
         console.log(this.dresses);
       })
       .then(() => {
         this.render();
-        
       });
   }
-  
-  
 
   render() {
     this.dressContainer.innerHTML = this.dresses
@@ -144,25 +136,23 @@ class Dresses {
             
             </ul>
             </div>
-            `  
+            `
       )
       .join("");
   }
 
-  viewDressModal = (e) => {
-    console.log("im in viewDressModal");
-    
-    console.log(e);
-    const dress_id = parseInt(e.target.parentElement.id)
-    console.log(typeof dress_id)
-    let dress = this.dresses.filter(dress => dress.id === dress_id)
-    console.log(dress)
-    dress = dress[0]
+  showDressModal = (e) => {
+    console.log("im in showDressModal");
+    this.fetchAndLoadRatings();
 
-    this.viewDressModal.innerHTML =
-      
-        
-            `<div class = "dress_img"  >
+    console.log(e);
+    const dress_id = parseInt(e.target.parentElement.id);
+    console.log(typeof dress_id);
+    let dress = this.dresses.filter((dress) => dress.id === dress_id);
+    console.log(dress);
+    dress = dress[0];
+
+    this.viewDressModal.innerHTML = `<div class = "dress_img"  >
             <img src ="${dress.img_url}" >
             </div>
             <div class = "dress_info"> 
@@ -198,60 +188,65 @@ class Dresses {
               <input type="submit" value="Save Rating" />
 
             </form>
+            <ul>
+            ${dress.rating}
+            </ul>
             </div>
+
             <br>
-            `  
-      ;
-   this.viewDressModal.classList.add("visible");
+            `;
+    this.ratingForm = document.getElementById("new-rating-form");
+    this.ratingForm.addEventListener("submit", this.createNewRating.bind(this));
+
+    this.viewDressModal.classList.add("visible");
     this.toggleBackdrop();
   };
 
-  createNewRating (e){
+  createNewRating(e) {
     e.preventDefault();
     console.log("in createNewRating");
-    let ratings = [];
+    const ratings = [];
+    console.log(ratings);
     const rating = {
       user_name: this.newUserName.value,
-      rating: this.newRating.value,
+      star_rating: this.newRating.value,
       comment: this.newComment.value,
-      
-      
-    }
-  fetch(this.ratingUrl,{
-      method: 'POST',
+    };
+    console.log(user_name);
+    fetch(this.ratingUrl, {
+      method: "POST",
       headers: {
-        'content-type': 'application/json'
+        "content-type": "application/json",
       },
       body: JSON.stringify(rating),
-      
-    }).then(res=>res.json())
+    })
+      .then((res) => res.json())
 
-      // this.adapter
-      //   .createDress(name, silhouette, neckline, img_url, price, length)
-    .then((rating) => {
-      console.log("in create rating");
-      console.log(rating);
-      this.ratings.push(new Rating(rating));
-      this.newUserName.value = " ";
-      this.newRating.value = " ";
-      this.newComment.value = " ";
-      
-      this.render();
-    });
-  this.closeDressModal();
-  console.log(rating);
+      .then((rating) => {
+        console.log("in create rating");
+        console.log(rating);
+        this.ratings.push(new Rating(rating));
+        this.newUserName.value = " ";
+        this.newRating.value = " ";
+        this.newComment.value = " ";
+
+        this.render();
+      });
+    this.closeDressModal();
+    console.log(rating);
   }
-// fetchAndLoadRatings() {
-  //   const allRatings = []
-  //   fetch(this.ratingUrl).then((res) => res.json())
-  //          .then((dresses) => {
-  //       dresses.forEach((dress) => this.dresses.push(new Dress(dress)));
-  //       console.log(allRatings);
-  //     })
-  //     .then(() => {
-  //       this.render();
-        
-  //     });
-  // }
-  // 
+  fetchAndLoadRatings() {
+    const allRatings = [];
+    
+    fetch(this.ratingUrl).then((res) => res.json())
+      .then((allRatings) => {
+        console.log(allRatings)
+        dresses.forEach((rating) => this.allRatings.push(new Rating(rating)));
+        console.log('Im in Fetch and Load Ratings')
+        console.log(this.allRatings);
+      })
+      .then(() => {
+        this.render();
+      });
+  }
 }
