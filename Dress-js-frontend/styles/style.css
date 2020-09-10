@@ -3,7 +3,7 @@
   }
   
   html {
-    font-family: sans-serif;
+    font-family: ui-sans-serif;
   }
   
   body {
@@ -51,8 +51,8 @@
     font: inherit;
     padding: 0.5rem 1rem;
     background: #ebcd4b;
-    border: 1px solid #ebcd4b;
-    color: white;
+    border: 1px solid #e9da97;
+    color:whitesmoke;
     border-radius: 6px;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.26);
     cursor: pointer;
@@ -138,6 +138,7 @@
     /* width: 100px;
     height: 100px; */
   }
+
   .card {
     background: white;
     border-radius: 10px;
@@ -157,18 +158,22 @@
     max-height: 100%;
     margin:0 auto;
     display: block; /* remove extra space below image */
-}
-.gallery {
-  margin: 8px;
-  /* border: 1px solid #ccc; */
-  float: left;
-  width: 495px;
-  height: auto
-}
+  }
+  .gallery {
+    margin: 8px;
+    /* border: 1px solid #ccc; */
+    float: left;
+    width: 495px;
+    height: auto;
+    text-align: center;
+  }
 
-.gallery:hover {
-  border: 1px solid white;
-}
+  .gallery:hover {
+    border: 1px solid white;
+  }
+  .dress_info{
+    text-align: center;
+  }
 
 /* .gallery img {
   width: 100%;
