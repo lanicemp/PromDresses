@@ -22,18 +22,17 @@ class Dresses {
     this.newDressPrice = document.getElementById("price");
     this.newDressLength = document.getElementById("length");
     this.dressForm = document.getElementById("new-dress-form");
-
-    // this.viewDress = document.getElementById("dress_card");
-    this.viewDressButton = document.querySelector("main section button");
-    this.dressForm.addEventListener("submit", this.createNewDress.bind(this));
-    // this.viewDressButton.addEventListener("click", this.viewDressModal.bind(this));
-    this.startAddDressButton.addEventListener(
-      "click",
-      this.createDressModal.bind(this)
-    );
-    this.backdrop.addEventListener("click", this.backdropClickHandler);
-    // this.viewDressButton.addEventListener("click", this.viewDressModal.bind(this));
+    this.dressContainer = document.getElementById("dress-container");
     
+
+    this.dressForm.addEventListener("submit", this.createNewDress.bind(this));
+    this.dressContainer.addEventListener("click", this.viewDressModal.bind(this));
+    this.startAddDressButton.addEventListener("click",this.createDressModal.bind(this));
+    this.backdrop.addEventListener("click", this.backdropClickHandler);
+
+    this.viewDressModal = document.getElementById("view-dress-modal");
+    //  window.dressesContainer.addEventListener('click', this.handleClick.bind(this))
+  // .getElementById('dress-container').addEventListener('click', this.handleClick.bind(this));
   }
   toggleBackdrop = () => {
     backdrop.classList.toggle("visible");
@@ -50,6 +49,8 @@ class Dresses {
 
   closeDressModal = () => {
     this.addDressModal.classList.remove("visible");
+    this.viewDressModal.classList.remove("visible");
+   
     this.toggleBackdrop();
   };
   
@@ -102,8 +103,7 @@ class Dresses {
 
   fetchAndLoadDresses() {
     fetch(this.baseUrl).then((res) => res.json())
-     
-      .then((dresses) => {
+           .then((dresses) => {
         dresses.forEach((dress) => this.dresses.push(new Dress(dress)));
         console.log(this.dresses);
       })
@@ -112,14 +112,26 @@ class Dresses {
         
       });
   }
+  // fetchAndLoadRatings() {
+  //   const allRatings = []
+  //   fetch(this.ratingUrl).then((res) => res.json())
+  //          .then((dresses) => {
+  //       dresses.forEach((dress) => this.dresses.push(new Dress(dress)));
+  //       console.log(allRatings);
+  //     })
+  //     .then(() => {
+  //       this.render();
+        
+  //     });
+  // }
+  
 
   render() {
-    const dressesContainer = document.getElementById("dress-container");
-    dressesContainer.innerHTML = this.dresses
+    this.dressContainer.innerHTML = this.dresses
       .map(
         (dress) =>
           ` <div class="gallery">
-            <ul class="dress_card" id="dress_card" >
+            <ul class="dress_card" id="${dress.id}">
             <div class = "dress_img"  >
             <img src ="${dress.img_url}" >
             </div>
@@ -131,28 +143,72 @@ class Dresses {
               </div>
               <span class="number-rating"></span>
             </td>
-            <p> silhouette: ${dress.silhouette}
-            <br> neckline: ${dress.neckline} 
-            <br> length: ${dress.length}
-            <br> price: $${dress.price}</p>
+            
             </div>
              <button> Dress Details and Comments </button>
             <br>
             </ul>
             </div>
-            
-            `
-           
+            `  
       )
       .join("");
-     
-    // this.dressesContainer.innerHTML = this.dresses.map(dress => dress.renderLi()).join("");
-    // this.dressesContainer.innerHTML = this.dresses.map(dress => dress.renderLi()).join('')
   }
-  viewDressModal = () => {
+
+  viewDressModal = (e) => {
     console.log("im in viewDressModal");
-    this.addDressModal.classList.add("visible");
+    
+    console.log(e);
+    const dress_id = parseInt(e.target.parentElement.id)
+    console.log(typeof dress_id)
+    let dress = this.dresses.filter(dress => dress.id === dress_id)
+    console.log(dress)
+    dress = dress[0]
+
+    this.viewDressModal.innerHTML =
+      
+        
+            `<div class = "dress_img"  >
+            <img src ="${dress.img_url}" >
+            </div>
+            <div class = "dress_info"> 
+            <h2>${dress.name}<h2>
+            <td>
+              <div class="stars-outer">
+                <div class="stars-inner"></div>
+              </div>
+              <span class="number-rating"></span>
+            </td>
+            <p> silhouette: ${dress.silhouette}
+            <br> neckline: ${dress.neckline} 
+            <br> length: ${dress.length}
+            <br> price: $${dress.price}</p>
+            <h2> Rate This Dress </h2>
+            <form id="new-dress-form">
+            <label for="userName "> User Name  </label>
+              <input type="text" name="userName" id="userName " />
+            <label for="rating ">Rating </label>
+                       
+              <select name="rating " id="rating " >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+
+              <label for="comment"> Comment </label>
+              <input type="text" name="comment" id="comment" />
+              <input type="submit" value="Save Rating" />
+
+            </form>
+            </div>
+            `  
+      
+      ;
+   this.viewDressModal.classList.add("visible");
     this.toggleBackdrop();
+
   };
+
   // 
 }
