@@ -1,6 +1,7 @@
 class Dresses {
   constructor() {
     this.dresses = [];
+    
     this.baseUrl = "http://localhost:3000/api/v1/dresses"
     this.ratingUrl = "http://localhost:3000/api/v1/ratings"
     // this.adapter = new DressesAdapter();
@@ -24,13 +25,16 @@ class Dresses {
     this.dressForm = document.getElementById("new-dress-form");
     this.dressContainer = document.getElementById("dress-container");
     
-
     this.dressForm.addEventListener("submit", this.createNewDress.bind(this));
+    
     this.dressContainer.addEventListener("click", this.viewDressModal.bind(this));
     this.startAddDressButton.addEventListener("click",this.createDressModal.bind(this));
     this.backdrop.addEventListener("click", this.backdropClickHandler);
-
+    
     this.viewDressModal = document.getElementById("view-dress-modal");
+    this.ratingForm = document.getElementById("new-rating-form");
+    // this.ratingForm.addEventListener("submit", this.createNewRating.bind(this));
+    
     //  window.dressesContainer.addEventListener('click', this.handleClick.bind(this))
   // .getElementById('dress-container').addEventListener('click', this.handleClick.bind(this));
   }
@@ -112,18 +116,7 @@ class Dresses {
         
       });
   }
-  // fetchAndLoadRatings() {
-  //   const allRatings = []
-  //   fetch(this.ratingUrl).then((res) => res.json())
-  //          .then((dresses) => {
-  //       dresses.forEach((dress) => this.dresses.push(new Dress(dress)));
-  //       console.log(allRatings);
-  //     })
-  //     .then(() => {
-  //       this.render();
-        
-  //     });
-  // }
+  
   
 
   render() {
@@ -143,10 +136,12 @@ class Dresses {
               </div>
               <span class="number-rating"></span>
             </td>
-            
+            <br>
+            <br>
             </div>
              <button> Dress Details and Comments </button>
-            <br>
+             
+            
             </ul>
             </div>
             `  
@@ -182,11 +177,13 @@ class Dresses {
             <br> neckline: ${dress.neckline} 
             <br> length: ${dress.length}
             <br> price: $${dress.price}</p>
+            <br>
             <h2> Rate This Dress </h2>
-            <form id="new-dress-form">
-            <label for="userName "> User Name  </label>
+
+            <form id="new-rating-form">
+              <label for="userName "> User Name  </label>
               <input type="text" name="userName" id="userName " />
-            <label for="rating ">Rating </label>
+              <label for="rating ">Rating </label>
                        
               <select name="rating " id="rating " >
                 <option value="1">1</option>
@@ -202,13 +199,59 @@ class Dresses {
 
             </form>
             </div>
+            <br>
             `  
-      
       ;
    this.viewDressModal.classList.add("visible");
     this.toggleBackdrop();
-
   };
 
+  createNewRating (e){
+    e.preventDefault();
+    console.log("in createNewRating");
+    let ratings = [];
+    const rating = {
+      user_name: this.newUserName.value,
+      rating: this.newRating.value,
+      comment: this.newComment.value,
+      
+      
+    }
+  fetch(this.ratingUrl,{
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(rating),
+      
+    }).then(res=>res.json())
+
+      // this.adapter
+      //   .createDress(name, silhouette, neckline, img_url, price, length)
+    .then((rating) => {
+      console.log("in create rating");
+      console.log(rating);
+      this.ratings.push(new Rating(rating));
+      this.newUserName.value = " ";
+      this.newRating.value = " ";
+      this.newComment.value = " ";
+      
+      this.render();
+    });
+  this.closeDressModal();
+  console.log(rating);
+  }
+// fetchAndLoadRatings() {
+  //   const allRatings = []
+  //   fetch(this.ratingUrl).then((res) => res.json())
+  //          .then((dresses) => {
+  //       dresses.forEach((dress) => this.dresses.push(new Dress(dress)));
+  //       console.log(allRatings);
+  //     })
+  //     .then(() => {
+  //       this.render();
+        
+  //     });
+  // }
   // 
 }
