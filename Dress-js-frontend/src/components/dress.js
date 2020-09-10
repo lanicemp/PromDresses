@@ -14,9 +14,21 @@ class Dress {
       
     //   this.comment = ratingJSON.comment
     }
-  
+    renderRating(ratings) {
+      console.log("ratings")
+      let ratingsString = ''
+      
+      if (!ratings) return ratingsString;
+
+      ratings.forEach(rating => {
+          ratingsString += `<p><i>${rating.star_}</i></p>`
+      });
+     
+      return ratingsString;
+     
+  }
     renderLi() {
-      return `<li>${this.name}, ${this.silhouette}, ${this.neckline},${this.length}, ${this.color}, ${this.img_url}, ${this.price} </li>`;
+      return `<li>${this.name}, ${this.silhouette}, ${this.neckline},${this.length}, ${this.color}, ${this.img_url}, ${this.price}, <br> <br> ratings: ${this.renderRatings(this.ratings)}</li>`;
     }
     // dressBindingsAndEventListeners() {
     //   this.viewDressButton = document.querySelector("main button");
