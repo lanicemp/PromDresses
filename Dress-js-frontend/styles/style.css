@@ -148,11 +148,17 @@
    
   }
   .dress_card{
+    list-style: none;
+    padding: 1.5rem;
+  }
+  .gallery .dress_card{
+
     background: white;
-    border-radius: 20px;
+    border-radius: 15px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    width: 500px;
-    padding: 1.5rem 1.5rem;
+    width: 495px;
+    /* padding: 1.5rem 1.5rem; */
+    margin: 1.5rem 0;
   }
   img{
     max-width: 100%;
@@ -201,8 +207,8 @@
     left: 15%;
     width:75%;
     transform: translate(-50%, -50%);
-    overflow-y: scroll; 
-    padding-left: 10px;
+    overflow-y: auto; 
+    /* padding-left: 10px; */
   }
   
   .modal.visible {
