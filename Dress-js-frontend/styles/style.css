@@ -9,7 +9,12 @@
   body {
     margin: 0;
   }
+  p {
+    font-size: 16px;
+    font-family: ui-sans-serif;
+    text-align: center;
    
+  } 
   
   button:focus {
     outline: none 
@@ -144,12 +149,35 @@
     background: white;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    flex: 0 1 calc(25% - 1em);
     /* width: 250px; */
    
   }
+  .cards {
+    display: grid;
+ 
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+ 
+grid-auto-rows: auto;
+ 
+grid-gap: 1rem;
+    
+    
+    
+    
+    /* display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; */
+ }
   .dress_card{
     list-style: none;
     padding: 1.5rem;
+    flex: 0 1 calc(25% - 1em);
+    /* border: 2px solid #e7e7e7;
+ 
+border-radius: 4px;
+ 
+padding: .5rem; */
   }
   .gallery .dress_card{
 
@@ -159,6 +187,7 @@
     width: 495px;
     /* padding: 1.5rem 1.5rem; */
     margin: 1.5rem 0;
+    
   }
   img{
     max-width: 100%;
@@ -170,15 +199,21 @@
     margin: 8px;
     /* border: 1px solid #ccc; */
     float: left;
-    width: 495px;
+    width:495px;
     height: auto;
     text-align: center;
+    display: table;
+    padding: 0;
+    list-style: none();
   }
 
   .gallery:hover {
     border: 1px solid white;
   }
   .dress_info{
+    text-align: center;
+  }
+  .rating-info{
     text-align: center;
   }
 
