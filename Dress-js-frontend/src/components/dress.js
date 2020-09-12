@@ -16,7 +16,7 @@ class Dress {
     }
      
      getRatings() {
-      
+      let rating = 5 
        console.log( "im in get ratings")
       
       //  console.log(ratings)
@@ -39,8 +39,8 @@ class Dress {
     renderDressRatings(ratings) {
       console.log("Im in Render Dress Ratings ")
       let ratingsString = ''
+      ratings.star_rating = 4 
       console.log(ratings.star_rating)
-      
       if (!ratings) return ratingsString;
       
       ratings.forEach(rating => {
@@ -77,8 +77,8 @@ class Dress {
           <br>
           <h2> Rate This Dress </h2>
           <form id="new-rating-form">
-            <label for="user_name "> User Name  </label>
-            <input type="text" name="user_name" id="user_name" />
+            <label for="username "> User Name  </label>
+            <input type="text" name="username" id="username" />
             <label for="rating ">Rating </label>
                       
             <select name="rating " id="rating" >
