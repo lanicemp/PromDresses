@@ -14,16 +14,54 @@ class Dress {
       this.ratings = dressJSON.ratings ? dressJSON.ratings : []
       //   this.comment = ratingJSON.comment
     }
+     
+     getRatings() {
+      
+       console.log( "im in get ratings")
+      
+      //  console.log(ratings)
+      for (let rating in ratings) {
+        // Get percentage
+        const starPercentage = (ratings[rating] / starsTotal) * 100;
 
+        // Round to nearest 10
+        const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+
+        // Set width of stars-inner to percentage
+        document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
+
+        // Add number rating
+        document.querySelector(`.${rating} .number-rating`).innerHTML = ratings[rating];
+
+        this.renderDressRatings(this.ratings)
+      }
+    }
     renderDressRatings(ratings) {
-      console.log("ratings")
+      console.log("Im in Render Dress Ratings ")
       let ratingsString = ''
+      console.log(ratings.star_rating)
       
       if (!ratings) return ratingsString;
-
+      
       ratings.forEach(rating => {
-          ratingsString += `<hr><p>UserName: ${rating.username}<br>Rating: ${rating.star_rating}<br>Comment: ${rating.comment}</p>`
+          ratingsString += `
+          
+          <div class= "rating-info">
+          <hr>
+          <p>User Name: ${rating.username}
+          <br>Rating: ${rating.star_rating} 
+          
+          <div class="stars-outer ">
+            <div class="stars-inner "></div>
+          </div>
+          <span class="number-rating "></span>
+          
+          <br>Comment: ${rating.comment}</p> 
+          </div>
+          `
       });
+      
+    
       return ratingsString;
     }
 
@@ -39,8 +77,8 @@ class Dress {
           <br>
           <h2> Rate This Dress </h2>
           <form id="new-rating-form">
-            <label for="userName "> User Name  </label>
-            <input type="text" name="userName" id="userName" />
+            <label for="user_name "> User Name  </label>
+            <input type="text" name="user_name" id="user_name" />
             <label for="rating ">Rating </label>
                       
             <select name="rating " id="rating" >
@@ -54,7 +92,9 @@ class Dress {
             <input type="text" name="comment" id="comment" />
             <input type="submit" value="Save Rating" />
           </form>
+          
           ${this.renderDressRatings(this.ratings)}
+
         `}
       }
       renderLi(isViewDressModal) {
@@ -63,14 +103,11 @@ class Dress {
             <img class="dress_img" src="${this.img_url}">
             <div class = "dress_info"> 
               <h3>${this.name}<h3>
-              <td>
                 <div class="stars-outer">
                   <div class="stars-inner"></div>
                 </div>
                 <span class="number-rating"></span>
-              </td>
-              <br>
-              <br>
+                <br>
             </div>
             ${this.renderDressDetails(isViewDressModal, this)}
           </li>
