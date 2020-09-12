@@ -207,14 +207,14 @@ class Dresses {
   createNewRating(e) {
     e.preventDefault();
     console.log("in createNewRating");
-    const userName = document.getElementById("userName");
+    const username = document.getElementById("username");
     const userRating = document.getElementById("rating");
     const userComment = document.getElementById("comment");
     const dress_id = parseInt(e.target.parentElement.id);
     
     const rating = {
       dress_id: dress_id,
-      user_name: userName.value ? userName.value : "anonymous",
+      username: username.value ? username.value : "anonymous",
       star_rating: userRating.options[userRating.selectedIndex].value,
       comment: userComment.value ? userComment.value : ""
     };
@@ -237,7 +237,7 @@ class Dresses {
             dress.ratings.push(newRating);
           }
         })
-        userName.value = ' ';
+        username.value = ' ';
         userRating.value = ' ';
         userComment.value = ' ';
 
