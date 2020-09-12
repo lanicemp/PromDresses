@@ -20,6 +20,7 @@
 Rating.create ([
     {comment:'I love this dress',
     star_rating:5, 
-    dress_id:1
+    dress_id:1,
+    username: "tester"
     }
 ])
