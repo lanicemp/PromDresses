@@ -8,12 +8,12 @@ class Rating {
         
     // }
 
-    constructor(comment, star_rating, dress_id, user_name ){
+    constructor(comment, star_rating, dress_id, username ){
         console.log("Im in rating.js")
         this.comment = comment
         this.star_rating = star_rating
         this.dress_id = dress_id
-        this.user_name = user_name
+        this.username = username
     }
 
     getRatings() {
