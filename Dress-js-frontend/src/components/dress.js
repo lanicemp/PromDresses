@@ -74,7 +74,8 @@ class Dress {
             <input type="text" name="comment" id="comment" />
             <input type="submit" value="Save Rating" />
           </form>
-          
+          ${console.log("calling this.ratings")}
+          ${console.log(this.ratings)}
           ${this.renderDressRatings(this.ratings)}
            
         `}
