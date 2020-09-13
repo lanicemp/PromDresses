@@ -10,10 +10,9 @@ class Dress {
       this.img_url = dressJSON.img_url;
       
       this.price = dressJSON.price;
-      // this.dressBindingsAndEventListeners();
       this.ratings = dressJSON.ratings ? dressJSON.ratings : []
-      //   this.comment = ratingJSON.comment
     }
+    
     renderLi(isViewDressModal) {
       return `
         <li id="${this.id}" class="dress_card">
@@ -60,20 +59,54 @@ class Dress {
           </form>
           ${console.log("calling this.ratings")}
           ${console.log(this.ratings)}
-          
+         
           ${this.renderDressRatings(this.ratings)}
           
         `}
         // ${this.getRatings(this.ratings)};
       }
-     
+
+      getRatings(ratings) {
+        console.log(ratings)
+        console.log(  ratings[6].star_rating)
+        console.log(ratings[6].dress_id)
+        //This is hard coded but I thinks that I some how have to use the target value. 
+        // But we are able to get a percentage for the rating 
+
+        // A for loop will be neccessary so that for each rating of the ratings we want to use the starrating
+        // to fing the percentage
+         console.log( "im in rating.get ratings")
+
+         let starrating = ratings[6].star_rating
+         const starsTotal = 5 
+         console.log(starsTotal)
+
+      //    //  console.log(ratings)
+      //    for (let rating in ratings) {
+      //      // Get percentage
+      // const starPercentage = (ratings[rating] / starsTotal) * 100;
+           const starPercentage = (starrating / starsTotal) * 100;
+           console.log(starPercentage);
+    
+      //      // Round to nearest 10
+      //      const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+    
+      //      // Set width of stars-inner to percentage
+      //      document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
+      document.querySelector(`.rating .stars-inner`).style.width = starPercentage;
+      //      // Add number rating
+           document.querySelector(`.rating-${rating.id} .number-rating`).innerHTML = rating;
+    
+      //      this.renderDressRatings(this.ratings)
+      //    }
+      this.renderDressRatings(this.ratings)
+       } 
+
     renderDressRatings(ratings) {
       console.log("Im in Render Dress Ratings ")
       console.log(ratings)
       let ratingsString = ''
-      // ratings.star_rating = 4 
-      // console.log(ratings.star_rating)
-        
+      
       if (!ratings) return ratingsString;
       
       ratings.forEach(rating => {
@@ -100,36 +133,7 @@ class Dress {
 
     
 
-      getRatings(ratings) {
-        console.log(ratings)
-        console.log(  ratings[6].star_rating)
-         console.log( "im in rating.get ratings")
-         
-    
-
-         let starrating = ratings[6].star_rating
-         const starsTotal = 5 
-         console.log(starsTotal)
-
-      //    //  console.log(ratings)
-      //    for (let rating in ratings) {
-      //      // Get percentage
-      // const starPercentage = (ratings[rating] / starsTotal) * 100;
-           const starPercentage = (starrating / starsTotal) * 100;
-           console.log(starPercentage);
-    
-      //      // Round to nearest 10
-      //      const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
-    
-      //      // Set width of stars-inner to percentage
-      //      document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
-      document.querySelector(`.rating-${rating.id} .stars-inner`).style.width = starPercentage;
-      //      // Add number rating
-           document.querySelector(`.rating-${rating.id} .number-rating`).innerHTML = rating;
-    
-      //      this.renderDressRatings(this.ratings)
-      //    }
-       } 
+      
     // renderLi() {
     //   return `<li>${this.name}, ${this.silhouette}, ${this.neckline},${this.length}, ${this.color}, ${this.img_url}, ${this.price}, <br> <br> ratings: ${this.renderRatings(this.ratings)}</li>`;
     // }
