@@ -14,46 +14,26 @@ class Dress {
       this.ratings = dressJSON.ratings ? dressJSON.ratings : []
       //   this.comment = ratingJSON.comment
     }
-     
-     getRatings() {
-      let rating = 5 
-       console.log( "im in get ratings")
-      
-      //  console.log(ratings)
-      for (let rating in ratings) {
-        // Get percentage
-        const starPercentage = (ratings[rating] / starsTotal) * 100;
-
-        // Round to nearest 10
-        const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
-
-        // Set width of stars-inner to percentage
-        document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
-
-        // Add number rating
-        document.querySelector(`.${rating} .number-rating`).innerHTML = ratings[rating];
-
-        this.renderDressRatings(this.ratings)
-      }
-    }
+    
+    
     renderDressRatings(ratings) {
       console.log("Im in Render Dress Ratings ")
       let ratingsString = ''
-      ratings.star_rating = 4 
-      console.log(ratings.star_rating)
+      // ratings.star_rating = 4 
+      // console.log(ratings.star_rating)
         
       if (!ratings) return ratingsString;
       
       ratings.forEach(rating => {
           ratingsString += `
           
-          <div class= "rating-info">
+          <div class= "rating-info rating-${rating.id}">
           <hr>
           <p>User Name: ${rating.username}
           <br>Rating: ${rating.star_rating} 
           
           <div class="stars-outer ">
-            <div class="stars-inner "></div>
+            <div class="stars-inner " ></div>
           </div>
           <span class="number-rating "></span>
           
@@ -64,6 +44,7 @@ class Dress {
       
     
       return ratingsString;
+      
     }
 
     renderDressDetails(isViewDressModal, dress) {
@@ -95,8 +76,9 @@ class Dress {
           </form>
           
           ${this.renderDressRatings(this.ratings)}
-
+           
         `}
+        // ${this.getRatings(this.ratings)};
       }
       renderLi(isViewDressModal) {
         return `
@@ -114,6 +96,29 @@ class Dress {
           </li>
         `;
       }
+
+      getRatings(rating) {
+        console.log(rating)
+         console.log( "im in rating.get ratings")
+         const starsTotal = 5 
+      //    //  console.log(ratings)
+      //    for (let rating in ratings) {
+      //      // Get percentage
+      // const starPercentage = (ratings[rating] / starsTotal) * 100;
+           const starPercentage = (rating / starsTotal) * 100;
+    
+      //      // Round to nearest 10
+      //      const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+    
+      //      // Set width of stars-inner to percentage
+      //      document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
+      document.querySelector(`.rating-${rating.id} .stars-inner`).style.width = starPercentage;
+      //      // Add number rating
+           document.querySelector(`.rating-${rating.id} .number-rating`).innerHTML = rating;
+    
+      //      this.renderDressRatings(this.ratings)
+      //    }
+       } 
     // renderLi() {
     //   return `<li>${this.name}, ${this.silhouette}, ${this.neckline},${this.length}, ${this.color}, ${this.img_url}, ${this.price}, <br> <br> ratings: ${this.renderRatings(this.ratings)}</li>`;
     // }
