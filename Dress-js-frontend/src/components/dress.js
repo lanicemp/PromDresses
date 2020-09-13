@@ -41,6 +41,7 @@ class Dress {
       let ratingsString = ''
       ratings.star_rating = 4 
       console.log(ratings.star_rating)
+        
       if (!ratings) return ratingsString;
       
       ratings.forEach(rating => {
