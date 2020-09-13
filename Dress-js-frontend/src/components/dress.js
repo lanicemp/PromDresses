@@ -14,39 +14,23 @@ class Dress {
       this.ratings = dressJSON.ratings ? dressJSON.ratings : []
       //   this.comment = ratingJSON.comment
     }
-    
-    
-    renderDressRatings(ratings) {
-      console.log("Im in Render Dress Ratings ")
-      let ratingsString = ''
-      // ratings.star_rating = 4 
-      // console.log(ratings.star_rating)
-        
-      if (!ratings) return ratingsString;
-      
-      ratings.forEach(rating => {
-          ratingsString += `
-          
-          <div class= "rating-info rating-${rating.id}">
-          <hr>
-          <p>User Name: ${rating.username}
-          <br>Rating: ${rating.star_rating} 
-          
-          <div class="stars-outer ">
-            <div class="stars-inner " ></div>
+    renderLi(isViewDressModal) {
+      return `
+        <li id="${this.id}" class="dress_card">
+          <img class="dress_img" src="${this.img_url}">
+          <div class = "dress_info"> 
+            <h3>${this.name}<h3>
+              <div class="stars-outer">
+                <div class="stars-inner"></div>
+              </div>
+              <span class="number-rating"></span>
+              <br>
           </div>
-          <span class="number-rating "></span>
-          
-          <br>Comment: ${rating.comment}</p> 
-          </div>
-          `
-      });
-      
-    
-      return ratingsString;
-      
+          ${this.renderDressDetails(isViewDressModal, this)}
+        </li>
+      `;
     }
-
+    
     renderDressDetails(isViewDressModal, dress) {
       if (!isViewDressModal) {
         return `<button> Dress Details and Comments </button>`;
@@ -76,37 +60,63 @@ class Dress {
           </form>
           ${console.log("calling this.ratings")}
           ${console.log(this.ratings)}
+          
           ${this.renderDressRatings(this.ratings)}
-           
+          
         `}
         // ${this.getRatings(this.ratings)};
       }
-      renderLi(isViewDressModal) {
-        return `
-          <li id="${this.id}" class="dress_card">
-            <img class="dress_img" src="${this.img_url}">
-            <div class = "dress_info"> 
-              <h3>${this.name}<h3>
-                <div class="stars-outer">
-                  <div class="stars-inner"></div>
-                </div>
-                <span class="number-rating"></span>
-                <br>
-            </div>
-            ${this.renderDressDetails(isViewDressModal, this)}
-          </li>
-        `;
-      }
+     
+    renderDressRatings(ratings) {
+      console.log("Im in Render Dress Ratings ")
+      console.log(ratings)
+      let ratingsString = ''
+      // ratings.star_rating = 4 
+      // console.log(ratings.star_rating)
+        
+      if (!ratings) return ratingsString;
+      
+      ratings.forEach(rating => {
+          ratingsString += `
+          
+          <div class= "rating-info rating-${rating.id}">
+          <hr>
+          <p>User Name: ${rating.username}
+          <br>Rating: ${rating.star_rating} 
+          
+          <div class="stars-outer ">
+            <div class="stars-inner " ></div>
+          </div>
+          <span class="number-rating "></span>
+          
+          <br>Comment: ${rating.comment}</p> 
+          </div>
+          `
+          this.getRatings(ratings);
+      });
+      
+      return ratingsString;
+    }
 
-      getRatings(rating) {
-        console.log(rating)
+    
+
+      getRatings(ratings) {
+        console.log(ratings)
+        console.log(  ratings[6].star_rating)
          console.log( "im in rating.get ratings")
+         
+    
+
+         let starrating = ratings[6].star_rating
          const starsTotal = 5 
+         console.log(starsTotal)
+
       //    //  console.log(ratings)
       //    for (let rating in ratings) {
       //      // Get percentage
       // const starPercentage = (ratings[rating] / starsTotal) * 100;
-           const starPercentage = (rating / starsTotal) * 100;
+           const starPercentage = (starrating / starsTotal) * 100;
+           console.log(starPercentage);
     
       //      // Round to nearest 10
       //      const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
