@@ -49,7 +49,6 @@ class Dresses {
 
   backdropClickHandler = () => {
     this.closeDressModal();
-    // closeMovieDeletionModal();
   };
 
   createNewDress(e) {
@@ -117,13 +116,6 @@ class Dresses {
       .map(dress =>dress.renderLi(false))
       .join("");
   }
-
-  // renderRating(){
-  //   console.log(rating)
-  //   this.viewDressModal.innerHTML = this.ratings
-  //   .map(rating => dres.renderDressRatings(false))
-  //   .join('');
-  //  }
   
   showDressModal = (e) => {
     console.log("im in showDressModal");
@@ -135,10 +127,14 @@ class Dresses {
     dress = dress[0];
 
     this.viewDressModal.innerHTML = dress.renderLi(true);
+   
+    //added this event listener I believe that since this deals with the ratings it will be a 
+    //good place to add the event listener for the ratings. 
     this.ratingForm = document.getElementById("new-rating-form");
     this.ratingForm.addEventListener("submit", this.createNewRating.bind(this));
     this.viewDressModal.classList.add("visible");
     this.toggleBackdrop();
+    document.addEventListener('DOMContentLoaded', dress.getRatings);
   };
 
   createNewRating(e) {
@@ -168,9 +164,7 @@ class Dresses {
       .then((rating) => {
         console.log("in create new rating");
         console.log(typeof rating);
-        
-        // const newRating = new Rating({rating});
-        // console.log(newRating)
+    
         this.dresses.forEach(dress => {
           console.log(typeof dress.id)
           console.log(typeof rating.dress_id)
@@ -178,8 +172,6 @@ class Dresses {
             dress.ratings.push(rating );
 
             this.viewDressModal.innerHTML = dress.renderLi(true);
-            //  dress.renderLi(true);
-            
           }
         })
         username.value = ' ';
@@ -194,6 +186,7 @@ class Dresses {
     // this.closeDressModal();
     console.log(rating);
   }
+
   fetchAndLoadRatings() {
     // const ratings = [];
     console.log("Im in Fetch and Load ratings ")
