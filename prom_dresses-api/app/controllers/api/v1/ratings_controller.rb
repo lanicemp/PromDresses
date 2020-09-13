@@ -32,7 +32,7 @@ class Api::V1::RatingsController < ApplicationController
     @rating = Rating.new(rating_params)
 
     if @rating.save
-      render json: @rating, status: :created, location: @rating
+      render json: @rating, status: :created
     else
       render json: @rating.errors, status: :unprocessable_entity
     end
