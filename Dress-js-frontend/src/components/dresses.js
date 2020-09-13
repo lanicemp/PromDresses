@@ -95,7 +95,7 @@ class Dresses {
   }
 // Javascript fetch function asynchronously pulls a resource from the specified url.
 //  Meanwhile fetch returns a Promise. Promise helps with the asynchronous part and runs the 
-// function passed into then (res => res.json()) once the resource is loaded with the fetched
+// function passed into then (response => response.json()) once the resource is loaded with the fetched
 //  resource as parameter. The fetched resource can be parsed using json() if it is JSON formatted.
 // then also returns a Promise making it chainable.
 
@@ -118,12 +118,12 @@ class Dresses {
       .join("");
   }
 
-  renderRating(){
-    console.log(rating)
-    this.viewDressModal.innerHTML = this.ratings
-    .map(rating => dres.renderDressRatings(false))
-    .join('');
-   }
+  // renderRating(){
+  //   console.log(rating)
+  //   this.viewDressModal.innerHTML = this.ratings
+  //   .map(rating => dres.renderDressRatings(false))
+  //   .join('');
+  //  }
   
   showDressModal = (e) => {
     console.log("im in showDressModal");
@@ -167,19 +167,30 @@ class Dresses {
 
       .then((rating) => {
         console.log("in create new rating");
-        console.log(rating);
-        const newRating = new Rating(rating);
+        console.log(typeof rating);
+        
+        // const newRating = new Rating({rating});
+        // console.log(newRating)
         this.dresses.forEach(dress => {
-          if (dress.id === newRating.dress_id) {
-            dress.ratings.push(new Rating (rating));
+          console.log(typeof dress.id)
+          console.log(typeof rating.dress_id)
+          if (dress.id === rating.dress_id) {
+            dress.ratings.push(rating );
+
+            this.viewDressModal.innerHTML = dress.renderLi(true);
+            //  dress.renderLi(true);
+            
           }
         })
         username.value = ' ';
         userRating.value = ' ';
         userComment.value = ' ';
 
-        this.renderRating();
+        // this.viewDressModal.innerHTML = dress.renderLi(true);
+        //  this.render();
+        // this.fetchAndLoadRatings();
       });
+
     // this.closeDressModal();
     console.log(rating);
   }
@@ -194,11 +205,14 @@ class Dresses {
         // dresses.forEach((rating) => this.allRatings.push(new Rating(rating)));
         this.dresses.forEach(dress => {
           allRatings.forEach(rating => {
+          
             if (dress.id === rating.dress_id) {
               dress.ratings.push(rating);
+              
             }
           })
         });
       });
   }
+  
 }
