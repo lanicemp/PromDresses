@@ -135,6 +135,11 @@
     background: #ff3217;
     border-color: #ff3217;
   }
+  section {
+    background-color: rgb(255, 224, 218);
+    
+    
+  }
   .dress_img {
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -217,11 +222,6 @@ padding: .5rem; */
     text-align: center;
   }
 
-/* .gallery img {
-  width: 100%;
-  height: auto;
-} */
-
 .desc {
   padding: 15px;
   text-align: center;
@@ -270,49 +270,7 @@ padding: .5rem; */
     justify-content: flex-end;
   }
   
-  /* .movie-element {
-    margin: 1rem 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    border-radius: 10px;
-    display: flex;
-  }
   
-  .movie-element h2,
-  .movie-element p {
-    font-size: 1.25rem;
-    margin: 0;
-  }
-  
-  .movie-element h2 {
-    color: #383838;
-    margin-bottom: 1rem;
-  }
-  
-  .movie-element p {
-    color: white;
-    display: inline;
-    background: #f67722;
-    padding: 0.25rem 1rem;
-    border-radius: 15px;
-  }
-  
-  .movie-element__image {
-    flex: 1;
-    border-radius: 10px 0 0 10px;
-    overflow: hidden;
-  } */
-  
-  /* .movie-element__image img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
-  
-  .movie-element__info {
-    flex: 2;
-    padding: 1rem;
-  }
-   */
   #entry-text {
     width: 40rem;
     margin: 2rem auto;
@@ -324,14 +282,6 @@ padding: .5rem; */
     font-size: 1.5rem;
     text-align: center;
   }
-  
-  /* #movie-list {
-    list-style: none;
-    width: 40rem;
-    max-width: 90%;
-    margin: 1rem auto;
-    padding: 0;
-  } */
   
   #backdrop {
     position: fixed;
