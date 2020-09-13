@@ -93,6 +93,11 @@ class Dresses {
     this.closeDressModal();
     console.log(dress);
   }
+// Javascript fetch function asynchronously pulls a resource from the specified url.
+//  Meanwhile fetch returns a Promise. Promise helps with the asynchronous part and runs the 
+// function passed into then (res => res.json()) once the resource is loaded with the fetched
+//  resource as parameter. The fetched resource can be parsed using json() if it is JSON formatted.
+// then also returns a Promise making it chainable.
 
   fetchAndLoadDresses() {
     fetch(this.baseUrl)
@@ -111,9 +116,14 @@ class Dresses {
     this.dressContainer.innerHTML = this.dresses
       .map(dress =>dress.renderLi(false))
       .join("");
-
-
   }
+
+  renderRating(){
+    console.log(rating)
+    this.viewDressModal.innerHTML = this.ratings
+    .map(rating => dres.renderDressRatings(false))
+    .join('');
+   }
   
   showDressModal = (e) => {
     console.log("im in showDressModal");
@@ -138,7 +148,7 @@ class Dresses {
     const userRating = document.getElementById("rating");
     const userComment = document.getElementById("comment");
     const dress_id = parseInt(e.target.parentElement.id);
-    
+    // creating the object for rating with 4 attributes
     const rating = {
       dress_id: dress_id,
       username: username.value ? username.value : "anonymous",
@@ -161,14 +171,14 @@ class Dresses {
         const newRating = new Rating(rating);
         this.dresses.forEach(dress => {
           if (dress.id === newRating.dress_id) {
-            dress.ratings.push(newRating);
+            dress.ratings.push(new Rating (rating));
           }
         })
         username.value = ' ';
         userRating.value = ' ';
         userComment.value = ' ';
 
-        this.render();
+        this.renderRating();
       });
     // this.closeDressModal();
     console.log(rating);
