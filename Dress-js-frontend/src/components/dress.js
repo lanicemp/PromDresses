@@ -57,19 +57,30 @@ class Dress {
             <input type="text" name="comment" id="comment" />
             <input type="submit" value="Save Rating" />
           </form>
-          ${console.log("calling this.ratings")}
-          ${console.log(this.ratings)}
-         
-          ${this.renderDressRatings(this.ratings)}
+          ${console.log("calling this.ratings")};
+          ${console.log(this.ratings)};
+          ${console.log(dress)};
+          ${this.getRatings(dress)};
+          
           
         `}
-        // ${this.getRatings(this.ratings)};
+        // ${this.getRatings(this.ratings)};${this.renderDressRatings(this.ratings)}
       }
 
-      getRatings(ratings) {
-        console.log(ratings)
-        console.log(  ratings[6].star_rating)
+      getRatings(dress) {
+        console.log(dress.ratings)
+        const ratings= dress.ratings
+        console.log(  ratings.star_rating)
         console.log(ratings[6].dress_id)
+        // const rating = {
+        
+        //   username: username.value ? username.value : "anonymous",
+        //   star_rating: userRating.options[userRating.selectedIndex].value,
+        //   comment: userComment.value ? userComment.value : ""
+        // };
+        this.ratings.forEach(rating =>{
+          console.log(rating.star_rating)
+       
         //This is hard coded but I thinks that I some how have to use the target value. 
         // But we are able to get a percentage for the rating 
 
@@ -77,7 +88,7 @@ class Dress {
         // to fing the percentage
          console.log( "im in rating.get ratings")
 
-         let starrating = ratings[6].star_rating
+         let starrating = rating.star_rating
          const starsTotal = 5 
          console.log(starsTotal)
 
@@ -87,19 +98,21 @@ class Dress {
       // const starPercentage = (ratings[rating] / starsTotal) * 100;
            const starPercentage = (starrating / starsTotal) * 100;
            console.log(starPercentage);
-    
+          
       //      // Round to nearest 10
       const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
       console.log(starPercentageRounded)
-      console.log(ratings.id)
+  
+      console.log(rating.id)
       //The rating.id is not populating
-    
+    });
       //      // Set width of stars-inner to percentage
       //      document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
       document.querySelector(`.rating-${rating.id} .stars-inner`).style.width = starPercentageRounded;
+    
       //      // Add number rating
            document.querySelector(`.rating-${rating.id} .number-rating`).innerHTML = rating;
-    
+       
       //      this.renderDressRatings(this.ratings)
       //    }
       this.renderDressRatings(this.ratings)
@@ -128,9 +141,9 @@ class Dress {
           <br>Comment: ${rating.comment}</p> 
           </div>
           `
-          this.getRatings(ratings);
+          
       });
-      
+      // this.getRatings(ratings);
       return ratingsString;
     }
 
