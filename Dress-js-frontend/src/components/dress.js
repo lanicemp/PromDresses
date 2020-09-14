@@ -12,7 +12,7 @@ class Dress {
       this.price = dressJSON.price;
       this.ratings = dressJSON.ratings ? dressJSON.ratings : []
     }
-    
+
     renderLi(isViewDressModal) {
       return `
         <li id="${this.id}" class="dress_card">
@@ -89,11 +89,14 @@ class Dress {
            console.log(starPercentage);
     
       //      // Round to nearest 10
-      //      const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+      const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+      console.log(starPercentageRounded)
+      console.log(ratings.id)
+      //The rating.id is not populating
     
       //      // Set width of stars-inner to percentage
       //      document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
-      document.querySelector(`.rating .stars-inner`).style.width = starPercentage;
+      document.querySelector(`.rating-${rating.id} .stars-inner`).style.width = starPercentageRounded;
       //      // Add number rating
            document.querySelector(`.rating-${rating.id} .number-rating`).innerHTML = rating;
     
