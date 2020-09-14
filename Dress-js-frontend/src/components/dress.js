@@ -68,50 +68,41 @@ class Dress {
       }
 
       getRatings(dress) {
+        
         console.log(dress.ratings)
         const ratings= dress.ratings
         console.log(  ratings.star_rating)
-        console.log(ratings[6].dress_id)
-        // const rating = {
-        
-        //   username: username.value ? username.value : "anonymous",
-        //   star_rating: userRating.options[userRating.selectedIndex].value,
-        //   comment: userComment.value ? userComment.value : ""
-        // };
-        this.ratings.forEach(rating =>{
-          console.log(rating.star_rating)
        
-        //This is hard coded but I thinks that I some how have to use the target value. 
+        this.ratings.forEach(rating =>{
+          console.log( "im iterating through each dress")
+          console.log(rating.dress_id)
+          console.log(rating.star_rating)
         // But we are able to get a percentage for the rating 
 
         // A for loop will be neccessary so that for each rating of the ratings we want to use the starrating
-        // to fing the percentage
-         console.log( "im in rating.get ratings")
-
+        // to find the percentage
+         
          let starrating = rating.star_rating
          const starsTotal = 5 
          console.log(starsTotal)
-
-      //    //  console.log(ratings)
-      //    for (let rating in ratings) {
-      //      // Get percentage
+      
+      // Get percentage
       // const starPercentage = (ratings[rating] / starsTotal) * 100;
            const starPercentage = (starrating / starsTotal) * 100;
            console.log(starPercentage);
           
-      //      // Round to nearest 10
+      // Round to nearest 10
       const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
       console.log(starPercentageRounded)
   
       console.log(rating.id)
-      //The rating.id is not populating
     });
-      //      // Set width of stars-inner to percentage
-      //      document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
-      document.querySelector(`.rating-${rating.id} .stars-inner`).style.width = starPercentageRounded;
-    
+    // Set width of stars-inner to percentage
+      document.querySelector(`.${this.rating} .stars-inner`).style.width=starPercentageRounded;
+      // document.querySelector(`.rating-${rating.id} .stars-inner`).style.width = starPercentageRounded;
+  
       //      // Add number rating
-           document.querySelector(`.rating-${rating.id} .number-rating`).innerHTML = rating;
+           document.querySelector(`.rating-${rating} .number-rating`).innerHTML = rating;
        
       //      this.renderDressRatings(this.ratings)
       //    }
