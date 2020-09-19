@@ -10,9 +10,9 @@ class Dresses {
     this.fetchAndLoadDresses();
   }
   initiBindingsAndEventListeners() {
-    // Im assigning the variables from the HTML 
+    // Im assigning the variables from the HTML and use it for the differnt functions of the application
     this.addDressModal = document.getElementById("add-modal");
-    this.startAddDressButton = document.querySelector("header button");
+    this.startAddDressButton = document.querySelector("header button");//To find the button in the header
     this.backdrop = document.getElementById("backdrop");
     this.dressesContainer = document.getElementById("new-dress-container");
     this.newDressName = document.getElementById("name");
@@ -24,10 +24,14 @@ class Dresses {
     this.dressForm = document.getElementById("new-dress-form");
     this.dressContainer = document.getElementById("dress-container");
     this.viewDressModal = document.getElementById("view-dress-modal");
+
     //Added eventlisteners to the submit and click buttons
     this.dressForm.addEventListener("submit", this.createNewDress.bind(this));
+    //This event listener submits the completed form to create a new dress
     this.dressContainer.addEventListener("click",this.showDressModal.bind(this));
+    //This event listener shows a larger version on the selcted dress and its details.
     this.startAddDressButton.addEventListener("click",this.createDressModal.bind(this));
+    //This event listener is associated with the add dress button which then displays the modal form card.
     this.backdrop.addEventListener("click", this.backdropClickHandler);
   }
 
@@ -56,6 +60,7 @@ class Dresses {
     console.log(this);
     
     //Im creating the object of dress that has six attributes. 
+    //Assingning the values I get from the form.
     const dress = {
       name: this.newDressName.value,
       silhouette: this.newDressSilhouette.value,
@@ -64,7 +69,9 @@ class Dresses {
       price: this.newDressPrice.value,
       length: this.newDressLength.value,
     };
-    //Im opening the database changing the object to a sting and posting the data from the form in the database 
+    //Im opening the database changing the object to a sting and 
+    //posting the data from the form in the database 
+    //Saving the new dress to the database
     fetch(this.baseUrl, {
       method: "POST",
       headers: {
@@ -103,16 +110,19 @@ class Dresses {
       .then((res) => res.json())
       .then((dresses) => {
         dresses.forEach((dress) => this.dresses.push(new Dress(dress)));
+        //I am retreiving  the data from the database and placing it in the dress object. 
         console.log(this.dresses);
         this.fetchAndLoadRatings()
       })
       .then(() => {
         this.render();
+
       });
   }
 
   render() {
     this.dressContainer.innerHTML = this.dresses
+    //Im populating all the dresses in the dress container
       .map(dress =>dress.renderLi(false))
       .join("");
   }
@@ -120,6 +130,7 @@ class Dresses {
   showDressModal = (e) => {
     console.log("im in showDressModal");
     console.log(e);
+    //This is assigning the dress_id and flitering to perform the rating.
     const dress_id = parseInt(e.target.parentElement.id);
     console.log(typeof dress_id);
     let dress = this.dresses.filter((dress) => dress.id === dress_id);
@@ -128,22 +139,23 @@ class Dresses {
 
     this.viewDressModal.innerHTML = dress.renderLi(true);
    
-    //added this event listener I believe that since this deals with the ratings it will be a 
-    //good place to add the event listener for the ratings. 
+    //added this event listener to manage the ratings
     this.ratingForm = document.getElementById("new-rating-form");
     this.ratingForm.addEventListener("submit", this.createNewRating.bind(this));
     this.viewDressModal.classList.add("visible");
     this.toggleBackdrop();
-    document.addEventListener('DOMContentLoaded', dress.getRatings);
+    
   };
 
   createNewRating(e) {
     e.preventDefault();
     console.log("in createNewRating");
+    //Creating variables to support my ratings tracking. 
     const username = document.getElementById("username");
     const userRating = document.getElementById("rating");
     const userComment = document.getElementById("comment");
     const dress_id = parseInt(e.target.parentElement.id);
+    
     // creating the object for rating with 4 attributes
     const rating = {
       dress_id: dress_id,
@@ -169,18 +181,19 @@ class Dresses {
           console.log(typeof dress.id)
           console.log(typeof rating.dress_id)
           if (dress.id === rating.dress_id) {
-            dress.ratings.push(rating );
-
+            // dress.ratings.push(rating );
+            dress.ratings.push(new Rating(rating))
             this.viewDressModal.innerHTML = dress.renderLi(true);
           }
         })
+        
         username.value = ' ';
         userRating.value = ' ';
         userComment.value = ' ';
 
         // this.viewDressModal.innerHTML = dress.renderLi(true);
         //  this.render();
-        // this.fetchAndLoadRatings();
+        this.fetchAndLoadRatings();
       });
 
     // this.closeDressModal();
@@ -198,10 +211,10 @@ class Dresses {
         // dresses.forEach((rating) => this.allRatings.push(new Rating(rating)));
         this.dresses.forEach(dress => {
           allRatings.forEach(rating => {
-          
             if (dress.id === rating.dress_id) {
-              dress.ratings.push(rating);
-              
+              dress.ratings.push(new Rating(rating))
+              //Created a new rating instance and stored in dress.ratings 
+              console.log(rating)
             }
           })
         });
