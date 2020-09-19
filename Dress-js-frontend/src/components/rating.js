@@ -1,14 +1,7 @@
 class Rating {
-    // constructor(ratingJSON) {
-    //     console.log("Im in rating.js");
-    //     this.comment = ratingJSON.comment;
-    //     this.star_rating = ratingJSON.star_rating;
-    //     this.dress_id = ratingJSON.dress_id;
-    //     this.user_name = ratingJSON.user_name
-        
-    // }
-
+    
     constructor(rating ){
+        //Assigning the values to the parameter of rating.  Creating the Rating object.
         console.log("Im in rating.js")
         this.comment = rating.comment
         this.star_rating = rating.star_rating
