@@ -11,6 +11,7 @@ class Dress {
       
       this.price = dressJSON.price;
       this.ratings = dressJSON.ratings ? dressJSON.ratings.map(rating => new Rating(rating)) : []
+
     }
 
     renderLi(isViewDressModal) {
@@ -57,16 +58,14 @@ class Dress {
             <input type="text" name="comment" id="comment" />
             <input type="submit" value="Save Rating" />
           </form>
-          ${console.log("calling this.ratings")};
-          ${console.log(this.ratings)};
-          ${console.log(dress)};
+        
           ${this.renderDressRatings(this.ratings)}
         `} 
       }
 
     renderDressRatings(ratings) {
       console.log("Im in Render Dress Ratings ")
-      console.log(ratings)
+      console.log(ratings.star_rating)
       let ratingsString = ''
       
       if (!ratings) return ratingsString;
@@ -87,6 +86,7 @@ class Dress {
           <span class="number-rating "></span>
           
           <br>Comment: ${rating.comment}</p> 
+          <input type="submit" value="Delete Rating" />
           </div>
           `
       });
