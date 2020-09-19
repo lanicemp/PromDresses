@@ -10,7 +10,7 @@ class Dress {
       this.img_url = dressJSON.img_url;
       
       this.price = dressJSON.price;
-      this.ratings = dressJSON.ratings ? dressJSON.ratings : []
+      this.ratings = dressJSON.ratings ? dressJSON.ratings.map(rating => new Rating(rating)) : []
     }
 
     renderLi(isViewDressModal) {
@@ -20,7 +20,7 @@ class Dress {
           <div class = "dress_info"> 
             <h3>${this.name}<h3>
               <div class="stars-outer">
-                <div class="stars-inner"></div>
+                <div class="stars-inner" ></div>
               </div>
               <span class="number-rating"></span>
               <br>
@@ -60,15 +60,12 @@ class Dress {
           ${console.log("calling this.ratings")};
           ${console.log(this.ratings)};
           ${console.log(dress)};
-          ${this.getRatings(dress)};
-          
-          
-        `}
-        // ${this.getRatings(this.ratings)};${this.renderDressRatings(this.ratings)}
+          ${this.renderDressRatings(this.ratings)}
+        `} 
       }
 
       getRatings(dress) {
-        
+        //Decided not to use this function and 
         console.log(dress.ratings)
         const ratings= dress.ratings
         console.log(  ratings.star_rating)
@@ -77,28 +74,27 @@ class Dress {
           console.log( "im iterating through each dress")
           console.log(rating.dress_id)
           console.log(rating.star_rating)
-        // But we are able to get a percentage for the rating 
+          // But we are able to get a percentage for the rating 
 
-        // A for loop will be neccessary so that for each rating of the ratings we want to use the starrating
-        // to find the percentage
-         
-         let starrating = rating.star_rating
-         const starsTotal = 5 
-         console.log(starsTotal)
+          // A for loop will be neccessary so that for each rating of the ratings we want to use the starrating
+          // to find the percentage
+          let starrating = rating.star_rating
+          const starsTotal = 5 
+          console.log(starsTotal)
       
-      // Get percentage
-      // const starPercentage = (ratings[rating] / starsTotal) * 100;
-           const starPercentage = (starrating / starsTotal) * 100;
-           console.log(starPercentage);
+          // Get percentage
+          const starPercentage = (starrating / starsTotal) * 100;
+          console.log(starPercentage);
           
-      // Round to nearest 10
-      const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
-      console.log(starPercentageRounded)
+          // Round to nearest 10
+          const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+          console.log(starPercentageRounded)
   
-      console.log(rating.id)
-    });
+          console.log(rating.id)
+        });
+    this.renderDressRatings(this.ratings)
     // Set width of stars-inner to percentage
-      document.querySelector(`.${this.rating} .stars-inner`).style.width=starPercentageRounded;
+      // document.querySelector(`.${this.rating} .stars-inner`).style.width=starPercentageRounded;
       // document.querySelector(`.rating-${rating.id} .stars-inner`).style.width = starPercentageRounded;
   
       //      // Add number rating
@@ -106,7 +102,7 @@ class Dress {
        
       //      this.renderDressRatings(this.ratings)
       //    }
-      this.renderDressRatings(this.ratings)
+      
        } 
 
     renderDressRatings(ratings) {
@@ -117,6 +113,7 @@ class Dress {
       if (!ratings) return ratingsString;
       
       ratings.forEach(rating => {
+        // debugger
           ratingsString += `
           
           <div class= "rating-info rating-${rating.id}">
@@ -125,15 +122,16 @@ class Dress {
           <br>Rating: ${rating.star_rating} 
           
           <div class="stars-outer ">
-            <div class="stars-inner " ></div>
+          
+            <div class="stars-inner " style= "width: ${rating.starPercentage()}"   ></div>
           </div>
           <span class="number-rating "></span>
           
           <br>Comment: ${rating.comment}</p> 
           </div>
           `
-          
       });
+      //On line 129 calls on the rating class to get the starPercentage.  
       // this.getRatings(ratings);
       return ratingsString;
     }
