@@ -112,9 +112,11 @@ class Dresses {
         dresses.forEach((dress) => this.dresses.push(new Dress(dress)));
         //I am retreiving  the data from the database and placing it in the dress object. 
         console.log(this.dresses);
-        this.fetchAndLoadRatings()
+        this.fetchAndLoadRatings() 
+       
       })
       .then(() => {
+       debugger
         this.render();
 
       });
@@ -138,7 +140,7 @@ class Dresses {
     dress = dress[0];
 
     this.viewDressModal.innerHTML = dress.renderLi(true);
-   
+  
     //added this event listener to manage the ratings
     this.ratingForm = document.getElementById("new-rating-form");
     this.ratingForm.addEventListener("submit", this.createNewRating.bind(this));
@@ -155,7 +157,7 @@ class Dresses {
     const userRating = document.getElementById("rating");
     const userComment = document.getElementById("comment");
     const dress_id = parseInt(e.target.parentElement.id);
-    
+
     // creating the object for rating with 4 attributes
     const rating = {
       dress_id: dress_id,
@@ -206,15 +208,19 @@ class Dresses {
     fetch(this.ratingUrl).then((res) => res.json())
       .then((allRatings) => {
         console.log(allRatings)
+        
         console.log ('im showing ratings above')
         //  ratings.forEach((rating)=>this.ratings.push(new Rating(rating)))
         // dresses.forEach((rating) => this.allRatings.push(new Rating(rating)));
         this.dresses.forEach(dress => {
+         
           allRatings.forEach(rating => {
             if (dress.id === rating.dress_id) {
-              dress.ratings.push(new Rating(rating))
-              //Created a new rating instance and stored in dress.ratings 
-              console.log(rating)
+              
+               dress.ratings.push(new Rating(rating))
+              //Created a new rating instance and stored in dress.ratings
+              //populates the ratings at the bottom of page.
+              
             }
           })
         });
