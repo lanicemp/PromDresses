@@ -13,6 +13,7 @@ class Dresses {
     // Im assigning the variables from the HTML and use it for the differnt functions of the application
     this.addDressModal = document.getElementById("add-modal");
     this.startAddDressButton = document.querySelector("header button");//To find the button in the header
+    this.sortDresses = document.getElementById("sort-dresses");
     this.backdrop = document.getElementById("backdrop");
     this.dressesContainer = document.getElementById("new-dress-container");
     this.newDressName = document.getElementById("name");
@@ -31,8 +32,29 @@ class Dresses {
     this.dressContainer.addEventListener("click",this.showDressModal.bind(this));
     //This event listener shows a larger version on the selcted dress and its details.
     this.startAddDressButton.addEventListener("click",this.createDressModal.bind(this));
+    this.sortDresses.addEventListener("click",this.sortTheseDresses.bind(this));
     //This event listener is associated with the add dress button which then displays the modal form card.
     this.backdrop.addEventListener("click", this.backdropClickHandler);
+  }
+
+  sortTheseDresses(){
+    console.log("im in sort these Dresses ")
+    // collect the name values of the list of dresses then I want to order bu the first letter 
+    // of the names 
+    this.dresses.sort(function(a, b){
+      var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+    
+      // names must be equal
+      return 0;
+    })
+    this.render();
   }
 
   toggleBackdrop = () => {
@@ -80,7 +102,7 @@ class Dresses {
       body: JSON.stringify(dress),
     })
       .then((res) => res.json())
-
+      //Turing turing the JSON string back into a JavaScript obj
       .then((dress) => {
 
         console.log("in create dress");
@@ -116,7 +138,7 @@ class Dresses {
        
       })
       .then(() => {
-       debugger
+       
         this.render();
 
       });
@@ -143,12 +165,17 @@ class Dresses {
   
     //added this event listener to manage the ratings
     this.ratingForm = document.getElementById("new-rating-form");
+    this.deleteRating = document.getElementById(`rating-info `);
+    console.log(this.deleteRating)
     this.ratingForm.addEventListener("submit", this.createNewRating.bind(this));
+    //  this.deleteRating.addEventListener("click", this.deleteThisRating.bind(this)); ;
     this.viewDressModal.classList.add("visible");
     this.toggleBackdrop();
     
   };
-
+deleteThisRating() {
+console.log(e)
+}
   createNewRating(e) {
     e.preventDefault();
     console.log("in createNewRating");
