@@ -19,4 +19,8 @@ class Rating {
         console.log(starPercentageRounded)
         return starPercentageRounded
     } 
+    deleteThisRating(e) {
+        console.log(e)
+        }
+
 }
