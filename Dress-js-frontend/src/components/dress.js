@@ -58,8 +58,9 @@ class Dress {
             <input type="text" name="comment" id="comment" />
             <input type="submit" value="Save Rating" />
           </form>
-        
+       
           ${this.renderDressRatings(this.ratings)}
+         
         `} 
       }
 
@@ -74,7 +75,7 @@ class Dress {
         // debugger
           ratingsString += `
           
-          <div class= "rating-info rating-${rating.id}">
+          <div class= "rating-info rating-${rating.id}" id = "rating-info ">
           <hr>
           <p>User Name: ${rating.username}
           <br>Rating: ${rating.star_rating} 
