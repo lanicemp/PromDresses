@@ -4,6 +4,9 @@ class Api::V1::DressesController < ApplicationController
   # GET /dresses
   def index
     @dresses = Dress.all
+    # @dress.get_average_rating
+    #  binding.pry
+
 
     render json: @dresses, except:[:created_at, :updated_at] ,status: 200
   end
@@ -11,6 +14,8 @@ class Api::V1::DressesController < ApplicationController
   # GET /dresses/1
   def show
     @dress = Dress.find(params[:id])
+    binding.pry
+   @dress.get_average_rating
     render json: @dress, status: 200 
   end
 
