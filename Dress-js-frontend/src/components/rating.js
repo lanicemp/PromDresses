@@ -1,4 +1,4 @@
-class Rating {
+export default class Rating {
     
     constructor(rating ){
         //Assigning the values to the parameter of rating.  Creating the Rating object.
