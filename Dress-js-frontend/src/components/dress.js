@@ -2,7 +2,7 @@ import Rating from './rating.js';
 
 export default class Dress {
   constructor(dressJSON) {
-    console.log("Im in dress.js");
+    // console.log("Im in dress.js");
     this.id = dressJSON.id;
     this.name = dressJSON.name;
     this.silhouette = dressJSON.silhouette;
@@ -180,6 +180,7 @@ export default class Dress {
       });*/
   }
   loadDressRating(dress){
+    console.log("Im in loadDressRating in the dress class")
     // Fetch the rating for a specific dress from the API
     // GET http://localhost:3000/api/v1/ratings/{id}
     const ratingUrl = `${this.ratingUrl}/${dress.id}`;
