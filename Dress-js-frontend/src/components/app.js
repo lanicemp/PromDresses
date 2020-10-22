@@ -1,5 +1,4 @@
-import Dress from './dress.js';
-
+import Dress from "./dress.js";
 
 export default class App {
   constructor() {
@@ -11,7 +10,7 @@ export default class App {
     //Created the new object of Dresses
     // TODO: When you remove the Dresses class, uncomment the line below
     this.dresses = [];
-    this.load();;
+    this.load();
     this.fetchAndLoadDresses();
   }
 
@@ -27,6 +26,7 @@ export default class App {
       `${Date.now()}: WHEN WE REFACTOR, THIS WILL BE REPLACED BY CALLING THE LOADDRESSES METHOD`
     );
     console.log(`${Date.now()}: Completed lading dress ratings`);
+  
   }
 
   initiBindingsAndEventListeners() {
@@ -89,9 +89,9 @@ export default class App {
       .then((dressesResponse) => {
         console.log(dressesResponse);
         dressesResponse.forEach((dress) => {
-           console.log(dress)
+          // console.log(dress);
           const Newdress = new Dress(dress);
-           Newdress.fetchAndLoadRatings();
+          Newdress.fetchAndLoadRatings();
           // Create fnction loadRating(dress)
           this.dresses.push(Newdress);
         });
@@ -99,12 +99,12 @@ export default class App {
         console.log(this.dresses);
         // dress.fetchAndLoadRatings();
       })
-    .then(() => {
+      .then(() => {
         this.render();
-    })
-    .catch(err =>{
-      console.error(err);
-    });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
   render() {
     this.dressContainer.innerHTML = this.dresses
@@ -175,12 +175,31 @@ export default class App {
     //  this.deleteRating.addEventListener("click", this.deleteThisRating.bind(this)); ;
     this.viewDressModal.classList.add("visible");
     this.toggleBackdrop();
+   
   };
+
   createDressModal = () => {
     console.log("im in createDressModal");
     this.addDressModal.classList.add("visible");
+    // this.backdrop.classList.add("visible");
     this.toggleBackdrop();
   };
+
+  toggleBackdrop = () => {
+    this.backdrop.classList.add("visible");
+  };
+
+  closeDressModal = () => {
+    this.addDressModal.classList.remove("visible");
+    this.viewDressModal.classList.remove("visible");
+    //this.toggleBackdrop(this.backdrop);
+                                                                                                                                                                         this.backdrop.classList.remove("visible");
+  };
+
+  backdropClickHandler = () => {
+    this.closeDressModal();
+  };
+
   sortTheseDresses() {
     console.log("im in sort these Dresses ");
     // collect the name values of the list of dresses then I want to order bu the first letter
@@ -199,5 +218,72 @@ export default class App {
       return 0;
     });
     this.render();
+  }
+
+  createNewRating(e) {
+    e.preventDefault();
+    console.log("in createNewRating");
+    //Creating variables to support my ratings tracking. 
+    const username = document.getElementById("username");
+    const userRating = document.getElementById("rating");
+    const userComment = document.getElementById("comment");
+    const dress_id = parseInt(e.target.parentElement.id);
+
+    // creating the object for rating with 4 attributes
+    const rating = {
+      dress_id: dress_id,
+      username: username.value ? username.value : "anonymous",
+      star_rating: userRating.options[userRating.selectedIndex].value,
+      comment: userComment.value ? userComment.value : ""
+    };
+    
+    fetch(this.ratingUrl, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(rating),
+    })
+      .then((res) => res.json())
+
+      .then((rating) => {
+        console.log("in create new rating");
+        console.log(typeof rating);
+    
+        this.dresses.forEach(dress => {
+          console.log(typeof dress.id)
+          console.log(typeof rating.dress_id)
+          if (dress.id === rating.dress_id) {
+            // dress.ratings.push(rating );
+            dress.ratings.push(new Rating(rating))
+            this.viewDressModal.innerHTML = dress.renderLi(true);
+          }
+        })
+        
+        username.value = ' ';
+        userRating.value = ' ';
+        userComment.value = ' ';
+
+        // this.viewDressModal.innerHTML = dress.renderLi(true);
+        //  this.render();
+        this.fetchAndLoadRatings();
+      });
+
+    // this.closeDressModal();
+    console.log(rating);
+  }
+  loadDressRating(dress){
+    console.log(" Im in loading dress rating")
+    // Fetch the rating for a specific dress from the API
+    // GET http://localhost:3000/api/v1/ratings/{id}
+    const ratingUrl = `${this.ratingUrl}/${dress.id}`;
+    fetch(ratingUrl)
+      // On response, grab the json
+      .then(res => res.json())
+      // Set the dress rating property based on the json result
+      .then(rating => 
+      {
+      
+      });
   }
 }
